@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        {% load static %}
+        <meta charset="UTF-8" />
+        <title>Blog Post | Create your blog</title>
+        <link
+            rel="stylesheet"
+            href="{% static './css/style.css'%}"
+            type="text/css"
+        />
+        <link
+            rel="icon"
+            type="image/png"
+            sizes="32x32"
+            href="./images/icons/blog-logo.svg"
+        />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta property="og:image" content="" />
+        <meta name="description" content="" />
+        <meta name="keywords" content="" />
+        <script src="./js/jquery-3.6.0.min.js"></script>
+        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script src="./js/script.js"></script>
+    </head>
+    <body>
+    <section id="home">
+        <section class="wrapper">
+            <header>
+                <h1>
+                    <a href="./index.html">
+                        <img
+                            src="{% static './images/dictionary.png' %}"
+                            alt="Logo"
+                        />
+                    </a>
+                </h1>
+                <div id="dictionary">
+                    <H1>
+                        ENGLISH DICTIONARY
+                    </H1>
+                </div>
+                <div>
+                    {% if request.user.is_authenticated %}
+                        <span>{{request.user.username}}</span>
+                        <a href="{% url 'users:logout'%}" class="login"> Logout </a>
+                    {% else %}
+                        <a href="{% url 'users:login'%}" class="login"> Login </a>
+                    {% endif %}
+                <div>
+                
+                <div id="hamburger-icon">
+                    <img
+                        src="./images/icons/hamburger.svg"
+                        alt="Hamburger"
+                    />
+                </div>
+            </header>    
+            <section class="main_container">
+                <section class=""></section>
+            </section>
+    </section>
+
+
+    </body>
+</html>
