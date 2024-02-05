@@ -209,7 +209,7 @@ section.main div.form div.submit_container button {
 }
 section.main div.form div.submit_container p.error-message,
 section.main div.form div.submit_container .errorlist {
-    color: #444;
+    color: #ffffff;
     width: 100%;
     margin: 10px 0;
     list-style: none;

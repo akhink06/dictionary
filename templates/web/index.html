@@ -3,7 +3,7 @@
     <head>
         {% load static %}
         <meta charset="UTF-8" />
-        <title>Blog Post | Create your blog</title>
+        <title>Dictionary | Research your thoughts</title>
         <link
             rel="stylesheet"
             href="{% static './css/style.css'%}"
@@ -42,7 +42,9 @@
                 </div>
                 <div>
                     {% if request.user.is_authenticated %}
-                        <span>{{request.user.username}}</span>
+                        <span>
+                            {{request.user.first_name}} 
+                            {{request.user.last_name}}</span>
                         <a href="{% url 'users:logout'%}" class="login"> Logout </a>
                     {% else %}
                         <a href="{% url 'users:login'%}" class="login"> Login </a>
