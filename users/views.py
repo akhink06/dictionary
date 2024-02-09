@@ -6,6 +6,7 @@ from django.contrib.auth.models import User
 
 from users.forms import UserForm
 from main.function import generate_form_errors
+from words.models import Author
 
 
 def login(request):
@@ -51,17 +52,19 @@ def signup(request):
     if request.method == "POST":
         form = UserForm(request.POST)
         if form.is_valid():
-            isinstance = form.save(commit=False)
+            instance = form.save(commit=False)
 
-            User.objects.create_user(
-                username = isinstance.username,
-                password = isinstance.password,
-                email = isinstance.email,
-                first_name = isinstance.first_name,
-                last_name = isinstance.last_name,
+            user = User.objects.create_user(
+                username = instance.username,
+                password = instance.password,
+                email = instance.email,
+                first_name = instance.first_name,
+                last_name = instance.last_name,
             )
 
-            user = authenticate(request, username = isinstance.username , password = isinstance.password)
+            Author.objects.create(name=instance.first_name ,user=user)
+
+            user = authenticate(request, username = instance.username , password = instance.password)
             auth_login(request,user)
 
             return HttpResponseRedirect(reverse("EnglishDictionary:index"))

@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+    {% block content %}
+        {% load static %}
+        <section id="home">
+            <section class="wrapper">
+                <header>
+                    <h1>
+                        <a href="./index.html">
+                            <img
+                                src="{% static './images/dictionary.png' %}"
+                                alt="Logo"
+                            />
+                        </a>
+                    </h1>
+                    <div id="dictionary">
+                        <H1>
+                            ENGLISH DICTIONARY
+                        </H1>
+                    </div>
+                    <div>
+                        {% if request.user.is_authenticated %}
+                            <a href="{% url 'EnglishDictionary:index' %}" class="login my-words">Home</a>
+                            <a href="{% url 'users:logout'%}" class="login"> Logout </a>
+                        {% else %}
+                            <a href="{% url 'users:login'%}" class="login"> Login </a>
+                        {% endif %}
+                    <div>
+                </header>    
+                <section class="add_word">
+                    <section class="spotword">
+                        <section class="top">
+                            <h1 class="word-heading">Add Word to Dictionary</h1>
+                        </section>
+                        <section class="bottom">
+                            <form action="" method="POST" class="ajax redirect" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                <div class="form-field1">
+                                    <label for="{{form.word.id_for_label}}" class="subheads" >
+                                        {{form.word.label}} :
+                                    </label>
+                                    {{form.word}}
+                                </div>
+                                <div class="form-field2">
+                                    <label class="subheads" for="{{form.definition.id_for_label}}">
+                                        {{form.definition.label}} :
+                                    </label>
+                                    <div class="definition">
+                                        <div class="editor" data-field-id="id_definition" style="display: inline-block;">
+                                            {{form.definition}}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-field3">
+                                    <label class="subheads" for="{{form.synonymns.id_for_label}}">
+                                        {{form.synonymns.label}} :
+                                    </label>
+                                    <div class="editor" data-field-id="id_synonymns" style="display: inline-block;">
+                                       {{form.synonymns}}
+                                    </div>
+                                </div>
+                               
+                                <div class="form-field4">
+                                    <input type="submit" value="Submit" style="color: #ffff;" />
+                                </div>
+                            </form>
+                        </section>   
+                    </section>
+                </section>
+            </section>
+        </section>
+    {% endblock %}
+    

@@ -1,68 +1,62 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        {% load static %}
-        <meta charset="UTF-8" />
-        <title>Dictionary | Research your thoughts</title>
-        <link
-            rel="stylesheet"
-            href="{% static './css/style.css'%}"
-            type="text/css"
-        />
-        <link
-            rel="icon"
-            type="image/png"
-            sizes="32x32"
-            href="./images/icons/blog-logo.svg"
-        />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <meta property="og:image" content="" />
-        <meta name="description" content="" />
-        <meta name="keywords" content="" />
-        <script src="./js/jquery-3.6.0.min.js"></script>
-        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-        <script src="./js/script.js"></script>
-    </head>
-    <body>
-    <section id="home">
-        <section class="wrapper">
-            <header>
-                <h1>
-                    <a href="./index.html">
-                        <img
-                            src="{% static './images/dictionary.png' %}"
-                            alt="Logo"
-                        />
-                    </a>
-                </h1>
-                <div id="dictionary">
-                    <H1>
-                        ENGLISH DICTIONARY
-                    </H1>
-                </div>
+{% extends "base.html" %}
+{% block content %}
+{% load static %}
+<section id="home">
+    <section class="wrapper">
+        <header>
+            <h1>
+                <a href="./index.html">
+                    <img src="{% static './images/dictionary.png' %}" alt="Logo" />
+                </a>
+            </h1>
+            <div id="dictionary">
+                <H1>
+                    ENGLISH DICTIONARY
+                </H1>
+            </div>
+            <div>
+                {% if request.user.is_authenticated %}
+                <a href="{% url 'words:create_word' %}" class="login my-words">Add</a>
+                <a href="{% url 'users:logout'%}" class="login"> Logout </a>
+                {% else %}
+                <a href="{% url 'users:login'%}" class="login"> Login </a>
+                {% endif %}
                 <div>
-                    {% if request.user.is_authenticated %}
-                        <span>
-                            {{request.user.first_name}} 
-                            {{request.user.last_name}}</span>
-                        <a href="{% url 'users:logout'%}" class="login"> Logout </a>
+        </header>
+        <section class="main_container">
+            <section class="spotlight">
+                <h1 class="search-heading">
+                    DICTIONARY SEARCH</h1>
+                <section class="form">
+                    <form  method="get" action="{% url 'words:search' %}">
+                        <input type="text" name="q" placeholder="Search for a word" value="{{query}}" class="search-form">
+                        <button type="submit" class="search-button">Search</button>
+                    </form>
+                    {% if no_results %}
+                    <p>No results found for "{{ query }}".</p>
                     {% else %}
-                        <a href="{% url 'users:login'%}" class="login"> Login </a>
+                </section>
+               
+                <section class="result">
+                    <ul>
+                        {% for word in results %}
+                        <li>
+                            <p class="search-word">Word : {{ word.word }}</p>
+                        </li>
+                        <li>
+                            <p class="search-definition">Definition : {{ word.definition }}</p>
+                        </li>
+                        <li>
+                            <p class="search-synonymns">Synonymns : {{ word.synonymns }}</p>
+                        </li>
+                        </li>
+                        {% endfor %}
+                    </ul>
                     {% endif %}
-                <div>
-                
-                <div id="hamburger-icon">
-                    <img
-                        src="./images/icons/hamburger.svg"
-                        alt="Hamburger"
-                    />
-                </div>
-            </header>    
-            <section class="main_container">
-                <section class=""></section>
+                </section>
             </section>
+        </section>
     </section>
+</section>
 
-
-    </body>
-</html>
+{% endblock %}
